@@ -1,7 +1,7 @@
 # CMPM-170-VR-Sound
 
 # Todo
-- [ ] add vr base project
+- [x] add vr base project
   - [ ] test vr
   - [ ] test spacial audio
 - [ ] mechanics
