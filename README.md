@@ -9,8 +9,8 @@
   - [ ] targets
   - [ ] sounds for targets
 - [ ] midi
-  - [ ] write midi script
-  - [ ] export to json
+  - [x] write midi script
+  - [x] export to json
   - [ ] load that into godot
   - [ ] make a playable level
 
