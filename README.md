@@ -13,3 +13,6 @@
   - [ ] export to json
   - [ ] load that into godot
   - [ ] make a playable level
+
+# Python Libraries
+`pip install mido` 
