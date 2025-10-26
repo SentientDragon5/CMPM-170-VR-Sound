@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=4 uid="uid://dnh3qg6sj10i1"]
+[gd_scene load_steps=26 format=4 uid="uid://dnh3qg6sj10i1"]
 
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://b7h5nd8kb6h0q" path="res://addons/godot-xr-tools/functions/function_pickup.gd" id="3_7mycd"]
 [ext_resource type="Script" uid="uid://ch08er7nbcv5e" path="res://addons/godot-xr-tools/xr/start_xr.gd" id="3_lquwl"]
-[ext_resource type="Script" uid="uid://iltmckdiebqu" path="res://addons/godot-xr-tools/hands/physics_hand.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://bkk5i4xst8qxf" path="res://addons/godot-xr-tools/objects/pickable.gd" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2yge"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -137,40 +138,52 @@ albedo_color = Color(0.436734, 0.436734, 0.436734, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 size = Vector3(10, 0.1, 10)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+size = Vector3(0.1, 0.1, 0.2)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lquwl"]
+points = PackedVector3Array(-0.049999997, -0.049999997, -0.098508894, 0.049999997, 0.049999997, 0.09543049, -0.048412696, 0.049999997, 0.09543049, -0.049999997, -0.049999997, 0.098508894, 0.049999997, -0.048412696, -0.09543049, -0.048412696, 0.049999997, -0.09543049, 0.049999997, 0.049999997, -0.09543049, 0.049999997, -0.048412696, 0.09543049)
+
+[node name="Main" type="Node3D"]
+
+[node name="Enviroment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
+transform = Transform3D(-0.86602354, -0.43301606, 0.25000072, 0, 0.49999818, 0.86602646, -0.5000033, 0.7499993, -0.4330102, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
 environment = SubResource("Environment_lquwl")
 
 [node name="XRToolsStartXR" type="Node" parent="."]
 script = ExtResource("3_lquwl")
 metadata/_custom_type_script = "uid://ch08er7nbcv5e"
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="PlayerOrigin" type="XROrigin3D" parent="."]
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+[node name="XRCamera3D" type="XRCamera3D" parent="PlayerOrigin"]
 
-[node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftController" type="XRController3D" parent="PlayerOrigin"]
 tracker = &"left_hand"
 
-[node name="LeftHand" parent="XROrigin3D/XRController3D" instance=ExtResource("1_h2yge")]
+[node name="LeftHand" parent="PlayerOrigin/LeftController" instance=ExtResource("1_h2yge")]
 
-[node name="XRController3D2" type="XRController3D" parent="XROrigin3D"]
+[node name="XRToolsFunctionPickup" type="Node3D" parent="PlayerOrigin/LeftController/LeftHand"]
+script = ExtResource("3_7mycd")
+metadata/_custom_type_script = "uid://b7h5nd8kb6h0q"
+
+[node name="RightController" type="XRController3D" parent="PlayerOrigin"]
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/XRController3D2" instance=ExtResource("2_1bvp3")]
+[node name="RightHand" parent="PlayerOrigin/RightController" instance=ExtResource("2_1bvp3")]
 
-[node name="XRToolsPhysicsHand" type="Node3D" parent="XROrigin3D/XRController3D2"]
-script = ExtResource("4_1bvp3")
-collision_layer = 131073
-metadata/_custom_type_script = "uid://iltmckdiebqu"
+[node name="XRToolsFunctionPickup" type="Node3D" parent="PlayerOrigin/RightController/RightHand"]
+script = ExtResource("3_7mycd")
+metadata/_custom_type_script = "uid://b7h5nd8kb6h0q"
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.38419e-07, 3.76557, -7.25974)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("ConvexPolygonShape3D_h2yge")
@@ -191,13 +204,13 @@ skeleton = NodePath("")
 
 [node name="Gun" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04172, -1.58749)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gun"]
 transform = Transform3D(0.084, 0, 0, 0, 0.084, 0, 0, 0, 0.084, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_1bvp3")
 
 [node name="Blaster" type="MeshInstance3D" parent="Gun/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3uro1")
 skeleton = NodePath("")
 
@@ -210,3 +223,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1bvp3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_lquwl")
+
+[node name="Spawner" type="Node3D" parent="."]
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3464012, 0.47969174)
+script = ExtResource("4_1bvp3")
+metadata/_custom_type_script = "uid://bkk5i4xst8qxf"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+shape = SubResource("ConvexPolygonShape3D_lquwl")

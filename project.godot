@@ -26,6 +26,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 vrs/mode=2
 
 [shader_globals]
