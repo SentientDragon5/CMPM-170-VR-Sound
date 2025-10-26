@@ -13,6 +13,9 @@
   - [x] export to json
   - [ ] load that into godot
   - [ ] make a playable level
+- [ ] build
+  - [ ] android -> cut
+  - [ ] web
 
 # Python Libraries
 `pip install mido` 
