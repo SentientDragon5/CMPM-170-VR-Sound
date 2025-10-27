@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8sjodlm0gtii"]
+
+[ext_resource type="Script" uid="uid://bevpdryio05i4" path="res://scripts/note.gd" id="1_rufh6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2jtqr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rufh6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3rik"]
+shading_mode = 0
+albedo_color = Color(1, 0.33999997, 0.33999997, 1)
+
+[node name="Note" type="CharacterBody3D"]
+script = ExtResource("1_rufh6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2jtqr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_rufh6")
+surface_material_override/0 = SubResource("StandardMaterial3D_k3rik")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

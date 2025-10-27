@@ -19,3 +19,8 @@
 
 # Python Libraries
 `pip install mido` 
+
+# Credits
+Notes from https://www.reddit.com/r/piano/comments/3u6ke7/heres_some_midi_and_mp3_files_for_individual/
+https://www.math-only-math.com/measuring-an-angle-by-a-protractor.html
+<a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Speaker icons created by Freepik - Flaticon</a>

@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=4 uid="uid://dnh3qg6sj10i1"]
+[gd_scene load_steps=27 format=4 uid="uid://dnh3qg6sj10i1"]
 
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://b7h5nd8kb6h0q" path="res://addons/godot-xr-tools/functions/function_pickup.gd" id="3_7mycd"]
 [ext_resource type="Script" uid="uid://ch08er7nbcv5e" path="res://addons/godot-xr-tools/xr/start_xr.gd" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://bkk5i4xst8qxf" path="res://addons/godot-xr-tools/objects/pickable.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dnl116ag8au6w" path="res://prefabs/spawner.tscn" id="5_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2yge"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -225,7 +226,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1bvp3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_lquwl")
 
-[node name="Spawner" type="Node3D" parent="."]
+[node name="Spawner" parent="." instance=ExtResource("5_7mycd")]
 
 [node name="XRToolsPickable" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3464012, 0.47969174)

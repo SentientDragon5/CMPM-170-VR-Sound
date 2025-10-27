@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Godot-Vr-Test"
+config/name="VR-Sound"
 run/main_scene="uid://dnh3qg6sj10i1"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
+config/icon="uid://bgq8idcrnyl57"
 
 [autoload]
 
